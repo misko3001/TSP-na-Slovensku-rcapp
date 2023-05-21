@@ -1,0 +1,21 @@
+<div>
+  <main>
+    <div class="left-bar">
+      <app-waypoint-form (waypointEmitter)="setWaypoints($event)"
+                         [clickedCoords]="clickedCoords.asObservable()"></app-waypoint-form>
+    </div>
+    <div id="ol-map" class="map-container">
+      <app-map [map]="map"></app-map>
+    </div>
+  </main>
+  <footer>
+    <app-scaleline [map]="map"></app-scaleline>
+    <app-mouse-position [map]="map" positionTemplate="{y} °, {x} °"></app-mouse-position>
+  </footer>
+</div>
+<hr>
+<div>
+  <app-geoid-form [awaitingResponse]="awaitingResponse"
+                  [hasWaypoints]="waypoints.length > 1"
+                  (request)="calculate($event)"></app-geoid-form>
+</div>

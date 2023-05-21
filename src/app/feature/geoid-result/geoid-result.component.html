@@ -1,0 +1,5 @@
+<div *ngIf="result != null">
+  <h3>Výsledok algoritmu</h3>
+  <div>Najkratsia cesta: <span *ngFor="let bod of result.shortestPath">{{bod}} -> </span>{{result.shortestPath[0]}}</div>
+  <div>Dlzka cesty: {{result.fullLength}} km</div>
+</div>

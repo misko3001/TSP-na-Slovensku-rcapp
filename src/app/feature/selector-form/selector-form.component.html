@@ -1,0 +1,104 @@
+<div class="container" style="min-height: 500px">
+  <div class="row d-flex">
+    <div class="col-12 mt-4 mb-4" style="text-align: center;">
+      <h3>Konfigurácia selekcie</h3>
+    </div>
+    <div class="col-12">
+      <form [formGroup]="selectorForm">
+        <div class="row d-flex justify-content-between form-outline" style="min-height: 150px;">
+          <!-- offspringSelector input -->
+          <div class="col-md-3 col-sm-12">
+            <h5 class="mb-3">Výber implementácie selekcie:</h5>
+            <mat-form-field appearance="fill" style="width: 275px;">
+              <mat-label>Výbraná implementácia</mat-label>
+              <mat-select formControlName="offspringSelector" (change)="getModifierDescription('offspring')">
+                <mat-option *ngFor="let selector of selectorTypes" [value]="selector">
+                  {{selector2Label[selector]}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- offspringSelectorModifier input -->
+          <div class="col-md-3 col-sm-12">
+            <h5 class="mb-3">Modifikácia selekcie:</h5>
+
+            <div *ngIf="getModifierDescription('offspring') != null" [innerHtml]="getModifierDescription('offspring')">
+            </div>
+
+            <div *ngIf="getModifierDescription('offspring') == null">
+              Vybraná implementácia nepotrebuje definovať žiadne ďalšie hodnoty.
+            </div>
+
+            <mat-form-field style="width: 188px" *ngIf="getModifierDescription('offspring') != null">
+              <mat-label>Modifikátor</mat-label>
+              <input (wheel)="$event.preventDefault()"
+                     class="no-controls"
+                     formControlName="offspringSelectorModifier"
+                     type="number"
+                     inputmode="numeric"
+                     matInput>
+            </mat-form-field>
+
+          </div>
+          <!-- offspringEliteSelectorValue input -->
+          <div class="col-md-3 col-sm-12">
+            <h5 class="mb-3">Elitizmus:</h5>
+            <mat-checkbox (change)="enableOffspringElite()">Použiť elitnú selekciu</mat-checkbox>
+            <mat-form-field *ngIf="enableOffspringEliteInput">
+              <mat-label>Počet elitných jedincov</mat-label>
+              <input type="number" min="1" matInput formControlName="offspringEliteSelectorValue">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col-12 mb-3">
+          <mat-checkbox (change)="enableParentForm()">Použiť inú implementáciu selekcie pre rodičov</mat-checkbox>
+        </div>
+
+        <div *ngIf="enableParentSelectorForm" class="row d-flex justify-content-between form-outline"
+             style="min-height: 150px;">
+          <!-- parentSelector input -->
+          <div class="col-md-3 col-sm-12">
+            <h5 class="mb-3">Výber implementácie selekcie:</h5>
+            <mat-form-field appearance="fill" style="width: 275px;">
+              <mat-label>Výbraná implementácia</mat-label>
+              <mat-select formControlName="parentSelector" (change)="getModifierDescription('parent')">
+                <mat-option *ngFor="let selector of selectorTypes" [value]="selector">
+                  {{selector2Label[selector]}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- parentSelectorModifier input -->
+          <div class="col-md-3 col-sm-12">
+            <h5 class="mb-3">Modifikácia selekcie:</h5>
+            <div *ngIf="getModifierDescription('parent') != null" [innerHtml]="getModifierDescription('parent')">
+            </div>
+            <div *ngIf="getModifierDescription('parent') == null">
+              Vybraná implementácia nepotrebuje definovať žiadne ďalšie hodnoty.
+            </div>
+            <mat-form-field style="width: 188px" *ngIf="getModifierDescription('parent') != null">
+              <mat-label>Modifikátor</mat-label>
+              <input (wheel)="$event.preventDefault()"
+                     class="no-controls"
+                     formControlName="parentSelectorModifier"
+                     type="number"
+                     inputmode="numeric"
+                     matInput>
+            </mat-form-field>
+          </div>
+          <!-- parentEliteSelectorValue input -->
+          <div class="col-md-3 col-sm-12">
+            <h5 class="mb-3">Elitnizmus:</h5>
+            <mat-checkbox (change)="enableParentElite()">Použiť elitnú selekciu</mat-checkbox>
+            <mat-form-field *ngIf="enableParentEliteInput">
+              <mat-label>Počet elitných jedincov</mat-label>
+              <input type="number" min="1" matInput formControlName="parentEliteSelectorValue">
+            </mat-form-field>
+          </div>
+        </div>
+        <br>
+      </form>
+    </div>
+  </div>
+</div>

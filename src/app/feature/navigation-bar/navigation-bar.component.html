@@ -1,0 +1,26 @@
+<mat-nav-list>
+  <a class="navbar-brand" routerLink="/" routerLinkActive="active">
+    <img
+      src="../../../assets/icon.avif"
+      height="64"
+      alt="TSPlogo"
+      loading="lazy"
+      style="margin-top: -1px;"
+    />
+    <small>Problém obchodného cestujúceho</small>
+  </a>
+
+  <mat-divider class="mt-4"></mat-divider>
+  <h2 matSubheader>Praktická sekcia</h2>
+  <a mat-list-item [routerLink]="['/slovak']">
+    <span matLine>Cestovanie po Slovensku</span>
+  </a>
+  <a mat-list-item [routerLink]="['/geoid']">
+    <span matLine>Cesta okolo sveta</span>
+  </a>
+  <mat-divider class="mt-2"></mat-divider>
+  <h2 matSubheader>Informácie</h2>
+  <a mat-list-item [routerLink]="['/']">
+    <span matLine>O aplikácii</span>
+  </a>
+</mat-nav-list>

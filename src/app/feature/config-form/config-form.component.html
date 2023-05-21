@@ -1,0 +1,59 @@
+<div class="container" style="min-height: 455px">
+  <div class="row d-flex">
+    <div class="col-12 mt-4 mb-4" style="text-align: center;">
+      <h3>Konfigurácia základných údajov</h3>
+    </div>
+    <div class="col-12">
+      <form [formGroup]="configForm">
+        <div class="row d-flex justify-content-between form-outline" style="min-height: 150px;">
+          <!-- populationSize input -->
+          <div class="col-md-6 col-sm-12">
+            <h5 class="mb-3">Velkosť populácie:</h5>
+            <div>
+              Hodnota určuje počet jedincov v každej generácii:
+            </div>
+            <mat-form-field style="width: 188px">
+              <mat-label>Počet jedincov</mat-label>
+              <input type="number" min="1" matInput formControlName="populationSize">
+            </mat-form-field>
+          </div>
+          <!-- offspringFraction input -->
+          <div class="col-md-6 col-sm-12">
+            <h5 class="mb-3">Pomer potomkov pri vytváraní novej generácie:</h5>
+            <div>
+              Hodnota určuje pomer potomkov v každej novej generácii (%):
+            </div>
+            <mat-form-field style="width: 188px">
+              <mat-label>Pomer potomkov</mat-label>
+              <input type="number" min="0" max="1" step="0.01" matInput formControlName="offspringFraction">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col-12 mb-3">
+          <mat-checkbox (change)="enableSubscriptionForm()">Zapnúť získavanie priebežných výsledkov</mat-checkbox>
+        </div>
+
+        <div *ngIf="this.enableSubscriptionInput" class="row d-flex justify-content-between form-outline" style="min-height: 50px;">
+          <!-- publishEachGeneration input -->
+          <div class="col-md-6 col-sm-12">
+            <h5 class="mb-3">Priebežné výsledky:</h5>
+            <div class="d-flex">
+              <div>
+                Získanie najlepšieho jedinca z každej
+              </div>
+              <div>
+                <input type="number" min="1" formControlName="publishEachGeneration"
+                       class="form-control no-controls me-2 ms-2"
+                       style="width: 90px; height: 1.5rem; text-align: center">
+              </div>
+              <div>
+                generácie.
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+::ng-deep .ol-scale-line {
+  position: relative;
+}
+::ng-deep .ol-scale-line, ::ng-deep .ol-scale-line-inner {
+  background-color: transparent;
+  border-color: black;
+  color: black;
+  font-size: inherit;
+  bottom: auto;
+}

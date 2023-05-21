@@ -1,0 +1,50 @@
+<div class="container mt-3 mb-3" *ngIf="result" style="box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3)">
+  <h1 class="h1" style="text-align: center">
+    Výsledná vypočítaná trasa
+  </h1>
+
+  <div class="d-flex">
+    <div class="row" style="text-align: center; font-size: 1.15rem;">
+      <div class="col-12 mt-2 mb-1">
+        <div class="color-secondary">
+          Výpočet sa ukončil po {{result.generations}} generáciach.
+        </div>
+      </div>
+      <div class="col-12 mt-2 mb-1">
+        <div class="color-secondary">
+          Najkratšia trasa má {{result.length}} km.
+        </div>
+      </div>
+      <div class="col-12 mt-2 mb-1">
+        <div class="color-secondary">
+          Algoritmus bežal {{result.duration}} sekúnd.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="overlay">
+    <div class="data-container">
+      <div
+        *ngFor="let item of result.route; let i = index; let isFirst = first, let isLast = last"
+        class="data-container__item">
+        <div [class._active]="isFirst || isLast"
+             [class._marked]="i % 4 === 0 && !isFirst && !isLast"
+             class="data-container__item-pointer">
+          <div class="pointer-dot">
+            <mat-icon *ngIf="isFirst">location_on</mat-icon>
+          </div>
+          <span class="pointer-vertical-line"></span>
+        </div>
+        <div class="data-container__item-wrapper">
+          <div class="data-container__item-position">
+            {{item}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

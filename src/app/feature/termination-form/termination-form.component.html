@@ -1,0 +1,123 @@
+<div class="container" style="min-height: 450px">
+  <div class="row d-flex">
+    <div class="col-12 mt-4 mb-4" style="text-align: center;">
+      <h3>Ukončovacie podmienky</h3>
+    </div>
+    <div class="col-12">
+      <form [formGroup]="terminationForm">
+        <div class="row d-flex justify-content-between form-outline" style="min-height: 100px;">
+          <!-- maxGenerations input -->
+          <div class="col-12">
+            <h5 class="mb-3">Na základe maximálneho počtu generácií:</h5>
+            <div class="d-flex">
+              <div>
+                Výpočet sa ukončí po
+              </div>
+              <div>
+                <input type="number" min="1" formControlName="maxGenerations"
+                       class="form-control no-controls me-2 ms-2"
+                       style="width: 135px; height: 1.5rem; text-align: center">
+              </div>
+              <div>
+                generáciach.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 mb-3">
+          <mat-checkbox (change)="enableTimeForm()">Ukončenie na základe času</mat-checkbox>
+        </div>
+
+        <div *ngIf="this.enableTimeTermination" class="row d-flex justify-content-between form-outline" style="min-height: 100px;">
+          <!-- chronoUnit / chronoValue input -->
+          <div class="col-12">
+            <h5 class="mb-3">Na základe vypršania času: </h5>
+            <div class="d-flex">
+              <div class="pt-1">
+                Výpočet sa ukončí po dosiahnutí hranice:
+              </div>
+              <div>
+                <input type="number" min="1" formControlName="chronoValue"
+                       class="form-control no-controls me-2 ms-2"
+                       style="width: 60px; height: 2rem; text-align: center">
+              </div>
+              <select formControlName="chronoUnit" class="form-select" style="width: 132px; height: 2rem">
+                <option *ngFor="let time of timeTypes" [value]="time" >
+                  {{time2Label[time]}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 mb-3">
+          <mat-checkbox (change)="enableSteadyFitnessForm()">Ukončenie na základe stagnácie fitness</mat-checkbox>
+        </div>
+
+        <div *ngIf="this.enableSteadyFitnessTermination" class="row d-flex justify-content-between form-outline" style="min-height: 100px;">
+          <!-- maxSteadyFitnessGenerations input -->
+          <div class="col-12">
+            <h5 class="mb-3">Na základe stagnácie fitness: </h5>
+            <div class="d-flex">
+              <div>
+                Výpočet sa ukončí ak sa fitness hodnota za posledných
+              </div>
+              <div>
+                <input type="number" min="1" formControlName="maxSteadyFitnessGenerations"
+                       class="form-control no-controls me-2 ms-2"
+                       style="width: 135px; height: 1.5rem; text-align: center">
+              </div>
+              <div>
+                generácií nezmenila.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 mb-3">
+          <mat-checkbox (change)="enableFitnessConvergenceForm()">Ukončenie na základe konvergencie fitness</mat-checkbox>
+        </div>
+
+        <div *ngIf="this.enableFitnessConvergenceTermination" class="row d-flex justify-content-between form-outline" style="min-height: 100px;">
+          <!-- shortFilter / longFilter / epsilon input -->
+          <div class="col-12">
+            <h5 class="mb-3">Na základe konvergencie: </h5>
+            <div class="d-flex">
+              <div>
+                Výpočet sa ukončí, ak rozdiel medzi priemernými fitness hodnotami posledných
+              </div>
+              <div>
+                <input type="number" min="1" formControlName="shortFilter"
+                       class="form-control no-controls me-2 ms-2"
+                       style="width: 75px; height: 1.5rem; text-align: center">
+              </div>
+              <div>
+                generácií a posledných
+              </div>
+              <div>
+                <input type="number" min="2" formControlName="longFilter"
+                       class="form-control no-controls me-2 ms-2"
+                       style="width: 75px; height: 1.5rem; text-align: center">
+              </div>
+              <br>
+              <div>
+                generácií nie je väčší ako
+              </div>
+              <div>
+                <input type="number" min="0" formControlName="epsilon"
+                       class="form-control no-controls ms-2"
+                       style="width: 125px; height: 1.5rem; text-align: center">
+              </div>
+              <div>.</div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+      </form>
+    </div>
+  </div>
+</div>

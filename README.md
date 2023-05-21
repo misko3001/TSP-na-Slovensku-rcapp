@@ -1,0 +1,1 @@
+## Prezentačná vrstva aplikácie

@@ -1,0 +1,36 @@
+  <!--<app-navigation-bar></app-navigation-bar>-->
+  <mat-drawer-container class="main-container" autosize>
+    <mat-drawer #drawer class="base-sidenav" mode="side" (closedStart)="menuChange()">
+      <app-navigation-bar></app-navigation-bar>
+    </mat-drawer>
+
+    <div class="main-content">
+      <mat-toolbar color="primary">
+        <mat-toolbar-row class="pt-5 pb-5">
+          <div class="container-fluid">
+            <div class="d-flex">
+              <div class="col-1">
+                <button mat-fab style="background-color: #5C6BC0" (click)="drawer.toggle();" aria-label="Menu icon">
+                  <mat-icon>menu</mat-icon>
+                </button>
+              </div>
+              <div class="col-11 d-none d-md-flex justify-content-center">
+                <a class="navbar-brand" routerLink="/" routerLinkActive="active">
+                  <img
+                    src="../../../assets/icon.avif"
+                    height="64"
+                    alt="TSPlogo"
+                    loading="lazy"
+                    style="margin-top: -1px;"
+                  />
+                  <small>Problém obchodného cestujúceho</small>
+                </a>
+              </div>
+            </div>
+          </div>
+        </mat-toolbar-row>
+      </mat-toolbar>
+      <router-outlet></router-outlet>
+    </div>
+
+  </mat-drawer-container>

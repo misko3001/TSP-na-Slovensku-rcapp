@@ -1,0 +1,33 @@
+<div class="container" style="min-height: 400px">
+  <div class="row d-flex">
+    <div class="col-12 mt-4 mb-4" style="text-align: center;">
+      <h3>Konfigurácia mutácie</h3>
+    </div>
+    <div class="col-12" style="text-align: center;">
+      <form [formGroup]="mutatorForm">
+        <div class="row d-flex justify-content-center align-items-center form-outline" style="min-height: 150px;">
+          <!-- mutator input -->
+          <div class="col-12 mb-4 mt-2">
+            <h5 class="mb-3">Výber implementácie mutácie:</h5>
+            <mat-form-field appearance="fill" style="width: 275px;">
+              <mat-label>Výbraná implementácia</mat-label>
+              <mat-select formControlName="mutator">
+                <mat-option *ngFor="let mutator of mutatorTypes" [value]="mutator">
+                  {{mutator2Label[mutator]}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- mutatorModifier input -->
+          <div class="col-12 mt-2">
+            <h5 class="mb-3">Pravdepodobnosť mutácie:</h5>
+            <mat-form-field style="width: 188px">
+              <mat-label>Šanca na mutáciu (%)</mat-label>
+              <input type="number" min="0" max="1" step="0.01" matInput formControlName="mutatorModifier">
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

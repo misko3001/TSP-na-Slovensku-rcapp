@@ -1,0 +1,32 @@
+<div>
+  <main>
+    <div class="left-bar">
+      <app-slovak-waypoint-list-form [selectedPoints]="randomPoints"
+                                     (added)="addMarker($event)"
+                                     (reset)="resetMarkers()"
+                                     (removed)="removeMarker($event)">
+      </app-slovak-waypoint-list-form>
+    </div>
+    <div id="ol-map" class="map-container">
+      <app-map [map]="map"></app-map>
+    </div>
+  </main>
+  <footer>
+    <app-scaleline [map]="map"></app-scaleline>
+    <app-mouse-position [map]="map" positionTemplate="{y} °, {x} °"></app-mouse-position>
+  </footer>
+</div>
+<hr/>
+<div class="container-fluid" style="max-width: 50vw">
+  <div class="d-flex align-items-center justify-content-center">
+    <mat-spinner *ngIf="awaitingResponse"></mat-spinner>
+    <app-tsp-final-result *ngIf="!awaitingResponse" [result]="result"></app-tsp-final-result>
+  </div>
+</div>
+<div class="stepper-container">
+  <app-slovak-stepper [points]="waypoints"
+                      [pointsStep]="waypointForm"
+                      (slovakRequest)="calculate($event)"
+                      (pointRequest)="getRandomPoints($event)">
+  </app-slovak-stepper>
+</div>

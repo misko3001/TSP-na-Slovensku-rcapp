@@ -1,0 +1,112 @@
+<mat-stepper [linear]="true" #stepper>
+  <mat-step [stepControl]="pointsStep">
+    <div style="min-height: 460px">
+      <ng-template matStepLabel>Body na mape</ng-template>
+      <div class="row d-flex">
+        <div class="col-12 mt-4 mb-4" style="text-align: center;">
+          <h3>Konfigurácia bodov trasy</h3>
+        </div>
+        <p style="text-align: center;">Je potrebné mať zadefinované aspoň 2 body</p>
+      </div>
+      <div class="d-flex mt-3 mb-3">
+        <button mat-flat-button color="primary"
+                [disabled]="numberOfRandomPoints < 2 || numberOfRandomPoints > 200"
+                (click)="dispatchRandomPointsRequest()" type="button">
+          Vygenerovať
+        </button>
+        <input [(ngModel)]="numberOfRandomPoints"
+               type="number"
+               min="2"
+               max="200"
+               class="form-control no-controls me-2 ms-2"
+               style="max-width: 60px; height: 35px; text-align: center">
+        <span style="padding-top: 6px"> náhodných bodov.</span>
+      </div>
+
+      <button mat-flat-button color="warn" (click)="resetPointsRequest()" type="button" class="mb-3 mt-3">
+        Odstrániť všetky body
+      </button>
+
+      <div class="mb-3 mt-3">
+        <button mat-flat-button
+                matStepperNext
+                color="primary"
+                [disabled]="points.length < 2"
+                (click)="checkConstraints()">Ďalej</button>
+      </div>
+      <div class="container-fluid">
+        <div class="d-flex justify-content-center align-items-center">
+          <table *ngIf="points.length > 0">
+            <tr>
+              <th class="nameHeader">Názov</th>
+              <th>Zemepisná šírka</th>
+              <th>Zemepisná dĺžka</th>
+            </tr>
+            <tr *ngFor="let point of points">
+              <td>{{point.name}}</td>
+              <td>{{point.latitude}}</td>
+              <td>{{point.longitude}}</td>
+            </tr>
+          </table>
+        </div>
+        <div *ngIf="points.length <= 0" style="text-align: center; color: #909499">
+          Zatiaľ neboli vybrané žiadne body.
+        </div>
+      </div>
+    </div>
+  </mat-step>
+
+  <mat-step [stepControl]="configStepForm">
+    <ng-template matStepLabel>Základné údaje</ng-template>
+    <app-config-form [configForm]="configStepForm"></app-config-form>
+    <div>
+      <button mat-button matStepperPrevious>Späť</button>
+      <button mat-flat-button color="primary" matStepperNext>Ďalej</button>
+    </div>
+  </mat-step>
+
+  <mat-step [stepControl]="selectorStepForm">
+    <ng-template matStepLabel>Selekcia</ng-template>
+    <app-selector-form [selectorForm]="selectorStepForm"></app-selector-form>
+    <div>
+      <button mat-button matStepperPrevious>Späť</button>
+      <button mat-flat-button color="primary" matStepperNext>Ďalej</button>
+    </div>
+  </mat-step>
+
+  <mat-step [stepControl]="crossoverStepForm">
+    <ng-template matStepLabel>Kríženie</ng-template>
+    <app-crossover-form [crossoverForm]="crossoverStepForm"></app-crossover-form>
+    <div>
+      <button mat-button matStepperPrevious>Späť</button>
+      <button mat-flat-button color="primary" matStepperNext>Ďalej</button>
+    </div>
+  </mat-step>
+
+  <mat-step [stepControl]="mutatorStepForm">
+    <ng-template matStepLabel>Mutácia</ng-template>
+    <app-mutator-form [mutatorForm]="mutatorStepForm"></app-mutator-form>
+    <div>
+      <button mat-button matStepperPrevious>Späť</button>
+      <button mat-flat-button color="primary" matStepperNext>Ďalej</button>
+    </div>
+  </mat-step>
+
+  <mat-step [stepControl]="termiantionStepForm">
+    <ng-template matStepLabel>Ukončenie</ng-template>
+    <app-termination-form [terminationForm]="termiantionStepForm"></app-termination-form>
+    <div>
+      <button mat-button matStepperPrevious>Späť</button>
+      <button mat-flat-button color="primary" matStepperNext>Ďalej</button>
+    </div>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Výpočet</ng-template>
+    <p>Začať výpočet genetického algoritmu so zadanými parametrami?</p>
+    <div>
+      <button mat-button matStepperPrevious>Späť</button>
+      <button mat-flat-button color="primary" (click)="createRequest(); stepper.selectedIndex = 0">Spustiť</button>
+    </div>
+  </mat-step>
+</mat-stepper>

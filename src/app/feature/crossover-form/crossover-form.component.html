@@ -1,0 +1,33 @@
+<div class="container" style="min-height: 400px">
+  <div class="row d-flex">
+    <div class="col-12 mt-4 mb-4" style="text-align: center;">
+      <h3>Konfigurácia kríženia</h3>
+    </div>
+    <div class="col-12">
+      <form [formGroup]="crossoverForm">
+        <div class="row d-flex justify-content-between form-outline" style="min-height: 150px; text-align: center;">
+          <!-- crossover input -->
+          <div class="col-12 mb-4 mt-2">
+            <h5 class="mb-3">Výber implementácie selekcie:</h5>
+            <mat-form-field appearance="fill" style="width: 275px;">
+              <mat-label>Výbraná implementácia</mat-label>
+              <mat-select formControlName="crossover">
+                <mat-option *ngFor="let crossover of crossoverTypes" [value]="crossover">
+                  {{crossover2Label[crossover]}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- crossoverModifier input -->
+          <div class="col-12 mt-2">
+            <h5 class="mb-3">Pravdepodobnosť kríženia:</h5>
+            <mat-form-field style="width: 188px">
+              <mat-label>Šancu na kríženie</mat-label>
+              <input type="number" min="0" max="1" step="0.01" matInput formControlName="crossoverModifier">
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

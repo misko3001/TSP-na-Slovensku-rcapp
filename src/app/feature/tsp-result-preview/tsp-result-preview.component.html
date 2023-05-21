@@ -1,0 +1,46 @@
+<h1 class="h1" style="text-align: center">
+  Priebežné výsledky
+</h1>
+
+<div *ngIf="currentGenerationIndex == null" class="container-fluid" style="max-width: 50vw">
+  <div class="d-flex align-items-center justify-content-center">
+    <mat-spinner ></mat-spinner>
+  </div>
+</div>
+
+<mat-form-field *ngIf="currentGenerationIndex != null" style="width: 100%" appearance="fill">
+  <mat-label>Zobraziť generáciu</mat-label>
+  <mat-select [(value)]="currentGenerationIndex">
+    <mat-option *ngFor="let option of results, let i = index"
+                [value]="i">
+      {{results[i].generation}}. generácia ({{results[i].length}} km)
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<div *ngIf="currentGenerationIndex != null">
+  <div class="overlay">
+    <div class="data-container">
+      <div
+        *ngFor="let item of results[currentGenerationIndex].route; let i = index; let isFirst = first, let isLast = last"
+        class="data-container__item">
+        <div [class._active]="isFirst || isLast"
+             [class._marked]="i % 4 === 0 && !isFirst && !isLast"
+             class="data-container__item-pointer">
+          <div class="pointer-dot">
+            <mat-icon *ngIf="isFirst">location_on</mat-icon>
+          </div>
+          <span class="pointer-vertical-line"></span>
+        </div>
+        <div class="data-container__item-wrapper">
+          <div class="data-container__item-position">
+            {{item}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
