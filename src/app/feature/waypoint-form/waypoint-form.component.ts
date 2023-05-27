@@ -1,13 +1,11 @@
 import {
   ChangeDetectionStrategy, ChangeDetectorRef,
   Component,
-  ElementRef,
   EventEmitter,
   Input,
   OnDestroy,
   OnInit,
   Output,
-  ViewChild
 } from '@angular/core';
 import {WaypointDto} from "../../shared/model/WaypointDto";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -37,9 +35,6 @@ export class WaypointFormComponent implements OnInit, OnDestroy {
 
   private sub: Subscription = new Subscription();
 
-  @ViewChild('waypointList', {static: true})
-  public waypointListModal!: ElementRef;
-
   @Input()
   public clickedCoords!: Observable<number[]>;
 
@@ -60,6 +55,12 @@ export class WaypointFormComponent implements OnInit, OnDestroy {
       this.waypointForm.controls['latitude'].setValue(coords[1]);
       this.cd.detectChanges();
     });
+  }
+
+  public deletePoint(name: string): void {
+    this.waypoints = this.waypoints.filter(value => !(value.name === name));
+    this.waypointNames.delete(name);
+    this.waypointEmitter.emit(this.waypoints);
   }
 
   ngOnDestroy(): void {
@@ -85,16 +86,6 @@ export class WaypointFormComponent implements OnInit, OnDestroy {
     this.waypointEmitter.emit(this.waypoints);
   }
 
-  public displayWaypointList(): void {
-    this.modalService.open(this.waypointListModal, {ariaLabelledBy: 'waypoint-list-modal'}).result.then((fulfilled) => {
-      if (fulfilled == 'reset') {
-        this.fullReset();
-      }
-    }, () => {
-
-    });
-  }
-
   private createForm(): void {
     this.waypointForm = new FormGroup({
       name: new FormControl(null, [
@@ -117,8 +108,10 @@ export class WaypointFormComponent implements OnInit, OnDestroy {
   private renderPoints(waypoint: WaypointDto): void {
     const feature = new Feature({
       geometry: new Point([waypoint.longitude, waypoint.latitude]),
-      name: waypoint.name
+      name: waypoint.name,
+      id: waypoint.name
     })
+    feature.setId(waypoint.name);
     feature.setStyle(new Style({
       image: new Icon({
         scale: 0.05,

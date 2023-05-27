@@ -1,25 +1,25 @@
-<div class="container">
-  <form class="d-flex justify-content-between" [formGroup]="geoidForm">
-    <!-- maxIterations input -->
-    <div class="col-3 form-outline mb-4">
-      <label class="form-label" for="maxIterations">Maximálny počet iterácií:</label>
-      <input type="number" id="maxIterations" min="1" formControlName="maxIterations" class="form-control" />
-    </div>
-    <!-- swapMutationChance input -->
-    <div class="col-3 form-outline mb-4">
-      <label class="form-label" for="swapMutationChance">Šanca mutácie (%):</label>
-      <input type="number" id="swapMutationChance" min="0" max="1" step="0.01" formControlName="swapMutationChance" class="form-control">
-    </div>
-    <!-- crossoverChance input -->
-    <div class="col-3 form-outline mb-4">
-      <label class="form-label" for="crossoverChance">Šanca kríženia (%):</label>
-      <input type="number" id="crossoverChance" min="0" max="1" step="0.01" formControlName="crossoverChance" class="form-control">
-    </div>
-    <br>
-  </form>
-  <div>
-    <button type="button" class="btn btn-success"
-            (click)="emitRequest()"
-            [attr.disabled]="isFormValid()">Vypočítaj</button>
-  </div>
-</div>
+<!--<div class="container">-->
+<!--  <form class="d-flex justify-content-between" [formGroup]="geoidForm">-->
+<!--    &lt;!&ndash; maxIterations input &ndash;&gt;-->
+<!--    <div class="col-3 form-outline mb-4">-->
+<!--      <label class="form-label" for="maxIterations">Maximálny počet iterácií:</label>-->
+<!--      <input type="number" id="maxIterations" min="1" formControlName="maxIterations" class="form-control" />-->
+<!--    </div>-->
+<!--    &lt;!&ndash; swapMutationChance input &ndash;&gt;-->
+<!--    <div class="col-3 form-outline mb-4">-->
+<!--      <label class="form-label" for="swapMutationChance">Šanca mutácie (%):</label>-->
+<!--      <input type="number" id="swapMutationChance" min="0" max="1" step="0.01" formControlName="swapMutationChance" class="form-control">-->
+<!--    </div>-->
+<!--    &lt;!&ndash; crossoverChance input &ndash;&gt;-->
+<!--    <div class="col-3 form-outline mb-4">-->
+<!--      <label class="form-label" for="crossoverChance">Šanca kríženia (%):</label>-->
+<!--      <input type="number" id="crossoverChance" min="0" max="1" step="0.01" formControlName="crossoverChance" class="form-control">-->
+<!--    </div>-->
+<!--    <br>-->
+<!--  </form>-->
+<!--  <div>-->
+<!--    <button type="button" class="btn btn-success"-->
+<!--            (click)="emitRequest()"-->
+<!--            [attr.disabled]="isFormValid()">Vypočítaj</button>-->
+<!--  </div>-->
+<!--</div>-->

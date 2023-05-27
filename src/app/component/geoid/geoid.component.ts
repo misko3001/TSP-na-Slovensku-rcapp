@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {GeoidRequestDto} from "../../shared/model/GeoidRequestDto";
 import {Subject, Subscription} from "rxjs";
 import {GeoidService} from "../../shared/service/geoid-service/geoid.service";
@@ -10,10 +10,14 @@ import {Feature, View} from "ol";
 import TileLayer from "ol/layer/Tile";
 import {Vector as VectorLayer} from "ol/layer";
 import {toLonLat} from "ol/proj";
-import Swal from "sweetalert2";
 import {GPX} from "ol/format";
 import {Stroke, Style} from "ol/style";
 import {MapResizeService} from "../../shared/service/map-resize-service/map-resize.service";
+import {TspResultPreviewComponent} from "../../feature/tsp-result-preview/tsp-result-preview.component";
+import {MatDialog} from "@angular/material/dialog";
+import {WaypointFormComponent} from "../../feature/waypoint-form/waypoint-form.component";
+import {GeoidResult} from "../../shared/model/GeoidResult";
+import {toFixed} from "ol/math";
 
 @Component({
   selector: 'app-geoid',
@@ -22,11 +26,14 @@ import {MapResizeService} from "../../shared/service/map-resize-service/map-resi
 })
 export class GeoidComponent implements OnInit, OnDestroy {
 
+  @ViewChild(WaypointFormComponent)
+  waypointFormComponent!: WaypointFormComponent
+
   markerSource = new VectorSource({});
 
   trackSource = new VectorSource({});
 
-  title: string = "rcapp-gen-alg"
+  result: GeoidResult | undefined;
 
   map?: Map;
 
@@ -38,7 +45,8 @@ export class GeoidComponent implements OnInit, OnDestroy {
 
   private sub: Subscription;
 
-  constructor(private geoidService: GeoidService,
+  constructor(@Inject(MatDialog) private readonly dialog: MatDialog,
+              private geoidService: GeoidService,
               private mapService: MapService,
               private resizeService: MapResizeService,
               private cd: ChangeDetectorRef) {
@@ -75,20 +83,22 @@ export class GeoidComponent implements OnInit, OnDestroy {
   }
 
   public calculate(request: GeoidRequestDto): void {
-    request.waypoints = this.waypoints;
+    request.points = this.waypoints;
     this.removeVectorLayer(this.trackSource);
     this.awaitingResponse = true;
+    if (request.processId) {
+      this.openModal(request.processId);
+    }
+    console.log(request)
     this.sub.add(this.geoidService.calculate(request).subscribe(data => {
-      // console.log(data);
-      const val = data.shortestPath.length > 4 ? `bodov` : `body`;
-      Swal.fire(`Optimálna cesta pre ${data.shortestPath.length} ` + val,
-        `Optimalna cesta ma dlzku ${data.fullLength.toFixed(3)} km <br>`,
-        'success')
       const features = new GPX().readFeatures(data.gpx, {
         dataProjection: 'EPSG:4326',
         featureProjection: this.map?.getView().getProjection()
       });
       this.resetTrackLayer(features[0]);
+      this.result = data;
+      this.result.length = toFixed(this.result.length, 3);
+      this.result.duration = toFixed(this.result.duration, 3);
       this.awaitingResponse = false;
       this.cd.detectChanges();
     }));
@@ -99,6 +109,30 @@ export class GeoidComponent implements OnInit, OnDestroy {
     if (this.waypoints.length == 0) {
       this.removeVectorLayer(this.trackSource);
       this.resetMarkerLayer();
+    }
+  }
+
+  openModal(data: string): void {
+    const dialogRef = this.dialog.open(TspResultPreviewComponent, {
+      data
+    });
+  }
+
+  public handlePointRemoval(name: string | null): void {
+    if (name) {
+      this.removeMarker(name);
+      this.waypointFormComponent.deletePoint(name);
+    } else {
+      this.waypointFormComponent.fullReset();
+    }
+  }
+
+  public removeMarker(name: string): void {
+    this.removeVectorLayer(this.trackSource);
+    const feature = this.markerSource.getFeatureById(name);
+    if (feature != null) {
+      this.markerSource.removeFeature(feature)
+      this.cd.detectChanges();
     }
   }
 

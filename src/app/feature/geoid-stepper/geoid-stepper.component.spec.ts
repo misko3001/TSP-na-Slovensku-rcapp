@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GeoidResultComponent } from './geoid-result.component';
+import { GeoidStepperComponent } from './geoid-stepper.component';
 
-describe('GeoidResultComponent', () => {
-  let component: GeoidResultComponent;
-  let fixture: ComponentFixture<GeoidResultComponent>;
+describe('GeoidStepperComponent', () => {
+  let component: GeoidStepperComponent;
+  let fixture: ComponentFixture<GeoidStepperComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GeoidResultComponent ]
+      declarations: [ GeoidStepperComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GeoidResultComponent);
+    fixture = TestBed.createComponent(GeoidStepperComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

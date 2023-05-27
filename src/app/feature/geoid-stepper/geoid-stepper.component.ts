@@ -1,32 +1,22 @@
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  Output
-} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
 import {WaypointDto} from "../../shared/model/WaypointDto";
 import {SlovakRequestDto} from "../../shared/model/SlovakRequestDto";
-import {TerminationDto} from "../../shared/model/TerminationDto";
 import {distinctUntilChanged} from "rxjs";
 import {TSPSelector} from "../../shared/model/TSPSelector";
+import {TerminationDto} from "../../shared/model/TerminationDto";
+import {GeoidRequestDto} from "../../shared/model/GeoidRequestDto";
 
 @Component({
-  selector: 'app-slovak-stepper',
-  templateUrl: './slovak-stepper.component.html',
-  styleUrls: ['./slovak-stepper.component.css'],
-  changeDetection: ChangeDetectionStrategy.Default
+  selector: 'app-geoid-stepper',
+  templateUrl: './geoid-stepper.component.html',
+  styleUrls: ['./geoid-stepper.component.css']
 })
-export class SlovakStepperComponent implements AfterViewInit {
+export class GeoidStepperComponent implements AfterViewInit {
 
   @Input() pointsStep!: FormGroup;
 
   @Input() points: WaypointDto[] = [];
-
-  numberOfRandomPoints: number = 10;
 
   configStepForm: FormGroup;
 
@@ -39,10 +29,10 @@ export class SlovakStepperComponent implements AfterViewInit {
   termiantionStepForm: FormGroup;
 
   @Output()
-  readonly slovakRequest = new EventEmitter<SlovakRequestDto>();
+  readonly geoidRequest = new EventEmitter<GeoidRequestDto>();
 
   @Output()
-  readonly pointRequest = new EventEmitter<number>();
+  readonly deletePoint = new EventEmitter<string | null>();
 
   private get offspringSelectorModifier(): AbstractControl {
     return this.selectorStepForm.controls['offspringSelectorModifier'];
@@ -215,7 +205,7 @@ export class SlovakStepperComponent implements AfterViewInit {
     );
 
     let publishEachGeneration = this.configStepForm.controls['publishEachGeneration'].value;
-    let request: SlovakRequestDto = new SlovakRequestDto(
+    let request: SlovakRequestDto = new GeoidRequestDto(
       [],
       termination,
       [this.selectorStepForm.controls['offspringSelector'].value, this.selectorStepForm.controls['parentSelector'].value],
@@ -230,16 +220,17 @@ export class SlovakStepperComponent implements AfterViewInit {
       publishEachGeneration != null ? this.getProcessId() : null,
       publishEachGeneration,
       this.configStepForm.controls['maxPhenotypeAge'].value);
-    this.slovakRequest.emit(request);
+    console.log(request.processId)
+    this.geoidRequest.emit(request);
     this.cd.detectChanges();
   }
 
-  dispatchRandomPointsRequest(): void {
-    this.pointRequest.emit(this.numberOfRandomPoints);
+  deletePoints(): void {
+    this.deletePoint.emit(null);
   }
 
-  resetPointsRequest(): void {
-    this.pointRequest.emit(0);
+  deleteSinglePoint(name: string): void {
+    this.deletePoint.emit(name);
   }
 
   public checkConstraints(): void {
@@ -256,5 +247,4 @@ export class SlovakStepperComponent implements AfterViewInit {
     }
     return id;
   }
-
 }

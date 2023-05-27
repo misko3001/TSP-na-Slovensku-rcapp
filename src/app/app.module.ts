@@ -8,7 +8,6 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {WaypointFormComponent} from './feature/waypoint-form/waypoint-form.component';
-import {GeoidResultComponent} from './feature/geoid-result/geoid-result.component';
 import {MapComponent} from './feature/map/map.component';
 import {ScalelineComponent} from './feature/scaleline/scaleline.component';
 import {MousePositionComponent} from './feature/mouse-position/mouse-position.component';
@@ -59,6 +58,7 @@ import {WebSocketConnector} from "./shared/service/web-socket-connector.service"
 import {TspResultPreviewComponent} from './feature/tsp-result-preview/tsp-result-preview.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { TspFinalResultComponent } from './feature/tsp-final-result/tsp-final-result.component';
+import {GeoidStepperComponent} from "./feature/geoid-stepper/geoid-stepper.component";
 
 @NgModule({
   declarations: [
@@ -66,7 +66,6 @@ import { TspFinalResultComponent } from './feature/tsp-final-result/tsp-final-re
     GeoidComponent,
     GeoidFormComponent,
     WaypointFormComponent,
-    GeoidResultComponent,
     MapComponent,
     ScalelineComponent,
     MousePositionComponent,
@@ -81,6 +80,7 @@ import { TspFinalResultComponent } from './feature/tsp-final-result/tsp-final-re
     TerminationFormComponent,
     TspResultPreviewComponent,
     TspFinalResultComponent,
+    GeoidStepperComponent,
   ],
     imports: [
         BrowserModule,
