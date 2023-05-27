@@ -59,7 +59,6 @@ import {WebSocketConnector} from "./shared/service/web-socket-connector.service"
 import {TspResultPreviewComponent} from './feature/tsp-result-preview/tsp-result-preview.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { TspFinalResultComponent } from './feature/tsp-final-result/tsp-final-result.component';
-import { InfoBoxComponent } from './feature/info-box/info-box.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +81,6 @@ import { InfoBoxComponent } from './feature/info-box/info-box.component';
     TerminationFormComponent,
     TspResultPreviewComponent,
     TspFinalResultComponent,
-    InfoBoxComponent,
   ],
     imports: [
         BrowserModule,
