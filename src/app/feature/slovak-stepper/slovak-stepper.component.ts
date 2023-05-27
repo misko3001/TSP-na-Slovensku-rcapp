@@ -58,6 +58,10 @@ export class SlovakStepperComponent implements AfterViewInit {
         Validators.required,
         Validators.min(1)
       ]),
+      maxPhenotypeAge: new FormControl(70, [
+        Validators.required,
+        Validators.min(1)
+      ]),
       offspringFraction: new FormControl(0.5, [
         Validators.required,
         Validators.min(0),
@@ -209,6 +213,8 @@ export class SlovakStepperComponent implements AfterViewInit {
       this.termiantionStepForm.controls['longFilter'].value,
       this.termiantionStepForm.controls['epsilon'].value
     );
+
+    let publishEachGeneration = this.configStepForm.controls['publishEachGeneration'].value;
     let request: SlovakRequestDto = new SlovakRequestDto(
       [],
       termination,
@@ -221,8 +227,9 @@ export class SlovakStepperComponent implements AfterViewInit {
       this.crossoverStepForm.controls['crossoverModifier'].value,
       this.configStepForm.controls['populationSize'].value,
       this.configStepForm.controls['offspringFraction'].value,
-      "myProcessId",
-      this.configStepForm.controls['publishEachGeneration'].value);
+      publishEachGeneration != null ? "myProcessId" : null,
+      publishEachGeneration,
+      this.configStepForm.controls['maxPhenotypeAge'].value);
     this.slovakRequest.emit(request);
     this.cd.detectChanges();
   }

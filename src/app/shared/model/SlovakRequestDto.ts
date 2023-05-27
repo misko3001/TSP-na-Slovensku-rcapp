@@ -26,6 +26,8 @@ export class SlovakRequestDto {
 
   populationSize: number;
 
+  maxPhenotypeAge: number;
+
   offspringFraction: number;
 
   processId: string | null;
@@ -33,7 +35,7 @@ export class SlovakRequestDto {
   publishEachGeneration: number | null
 
 
-  constructor(points: Array<MatrixPointDto>, termination: TerminationDto, selectors: Array<TSPSelector | null>, selectionModifiers: Array<string | null>, numberOfElites: Array<number | null>, mutator: TSPMutator, mutationModifier: string | null, crossover: TSPCrossover, crossoverModifier: string | null, populationSize: number, offspringFraction: number, processId: string | null, publishEachGeneration: number | null) {
+  constructor(points: Array<MatrixPointDto>, termination: TerminationDto, selectors: Array<TSPSelector | null>, selectionModifiers: Array<string | null>, numberOfElites: Array<number | null>, mutator: TSPMutator, mutationModifier: string | null, crossover: TSPCrossover, crossoverModifier: string | null, populationSize: number, offspringFraction: number, processId: string | null, publishEachGeneration: number | null, maxPhenotypeAge: number) {
     this.points = points;
     this.termination = termination;
     this.selectors = selectors;
@@ -47,5 +49,6 @@ export class SlovakRequestDto {
     this.offspringFraction = offspringFraction;
     this.processId = processId;
     this.publishEachGeneration = publishEachGeneration;
+    this.maxPhenotypeAge = maxPhenotypeAge;
   }
 }
