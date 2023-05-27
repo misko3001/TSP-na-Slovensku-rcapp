@@ -1,23 +1,31 @@
-<mat-form-field class="example-form-field">
-  <mat-label>Vyhladavanie</mat-label>
-  <input matInput type="text" [(ngModel)]="filter" (change)="filterByName()">
-  <button *ngIf="filter" matSuffix mat-icon-button aria-label="Clear" (click)="filter=''; filterByName()">
-    <mat-icon>close</mat-icon>
-  </button>
-</mat-form-field>
+<div class="row">
+  <div class="col">
+    <mat-form-field>
+      <mat-label>Vyhladavanie</mat-label>
+      <input matInput type="text" [(ngModel)]="filter" (ngModelChange)="filterByName()" (change)="filterByName()">
+      <button *ngIf="filter" matSuffix mat-icon-button aria-label="Clear" (click)="filter=''; filterByName()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+</div>
 
-<mat-selection-list [formControl]="pointsControl"
-                    [multiple]="true"
-                    (selectionChange)="onPointChange($event)"
-                    class="waypoint-list">
-  <mat-list-option *ngFor="let point of filteredPoints"
-                   [value]='point.name'>
-    {{point.name}}
-  </mat-list-option>
-</mat-selection-list>
-
-<div class="container-fluid d-flex justify-content-center" *ngIf="points == null">
-  <div class="spinner-border text-primary" style="width: 5rem; height: 5rem;" role="status">
-    <span class="visually-hidden">Loading...</span>
+<div class="row left-bar-element">
+  <div class="col">
+    <mat-selection-list *ngIf="points.length != 0"
+                        [formControl]="pointsControl"
+                        [multiple]="true"
+                        (selectionChange)="onPointChange($event)"
+                        class="waypoint-list">
+      <mat-list-option *ngFor="let point of filteredPoints"
+                       [value]='point.name'>
+        {{point.name}}
+      </mat-list-option>
+    </mat-selection-list>
+    <div class="container-fluid d-flex justify-content-center" *ngIf="points.length == 0">
+      <div class="spinner-border text-primary" style="width: 5rem; height: 5rem;" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
   </div>
 </div>

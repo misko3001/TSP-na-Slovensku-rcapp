@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -11,7 +10,6 @@ import {MapDataService} from "../../shared/service/map-data-service/map-data.ser
 import {FilterService} from 'primeng/api';
 import {FormControl} from "@angular/forms";
 import {MatSelectionListChange} from "@angular/material/list/selection-list";
-import {forEach} from "ol/geom/flat/segments";
 
 @Component({
   selector: 'app-slovak-waypoint-list-form',
@@ -22,6 +20,9 @@ import {forEach} from "ol/geom/flat/segments";
 export class WaypointListFormComponent implements OnChanges {
   @Input()
   selectedPoints: ReadonlyArray<WaypointDto> = [];
+
+  @Input()
+  parentPoints: ReadonlyArray<WaypointDto> = [];
 
   pointsControl = new FormControl([]);
 
@@ -70,6 +71,7 @@ export class WaypointListFormComponent implements OnChanges {
     if (this.filter != '') {
       this.filteredPoints = this.filteredPoints.filter(value => this.filterService.filters.startsWith(value.name, this.filter));
     }
+    this.pointsControl.setValue(this.parentPoints.map(point => point.name));
     this.cd.detectChanges();
   }
 

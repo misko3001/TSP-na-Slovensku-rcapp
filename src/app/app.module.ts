@@ -56,7 +56,6 @@ import {CrossoverFormComponent} from './feature/crossover-form/crossover-form.co
 import {ConfigFormComponent} from './feature/config-form/config-form.component';
 import {TerminationFormComponent} from './feature/termination-form/termination-form.component';
 import {WebSocketConnector} from "./shared/service/web-socket-connector.service";
-import {environment} from "../environments/environment";
 import {TspResultPreviewComponent} from './feature/tsp-result-preview/tsp-result-preview.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { TspFinalResultComponent } from './feature/tsp-final-result/tsp-final-result.component';
@@ -129,7 +128,7 @@ import { InfoBoxComponent } from './feature/info-box/info-box.component';
       provide: APP_INITIALIZER,
       deps: [WebSocketConnector],
       useFactory: (wsConnector: WebSocketConnector) => {
-        return () => wsConnector.connect(environment.ws);
+        return () => wsConnector.connect("http://localhost:8080/ws");
       },
       multi: true
     }
