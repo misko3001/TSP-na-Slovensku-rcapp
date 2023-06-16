@@ -1,5 +1,5 @@
 <form [formGroup]="waypointForm">
-  <!-- name input -->
+  <!-- name input test -->
   <div class="form-outline mb-4">
     <label class="form-label" for="name">Názov bodu:</label>
     <input type="text" id="name" formControlName="name" class="form-control" />
@@ -19,22 +19,4 @@
             (click)="addWaypoint(waypointForm.value)"
             [attr.disabled]="isFormValid()">Pridať bod</button>
   </div>
-  <div class="mt-3 d-flex justify-content-center align-items-center">
-    <button type="button" class="btn btn-primary"
-            (click)="displayWaypointList()"
-            [disabled]="waypoints.length < 1">Zobraziť body</button>
-  </div>
 </form>
-
-<ng-template #waypointList let-waypointListModal>
-  <div class="modal-body">
-    <ol *ngIf="waypoints.length > 0">
-      <li *ngFor="let waypoint of waypoints">{{waypoint.name}} ({{waypoint.latitude}}° {{waypoint.longitude}}°)</li>
-    </ol>
-    <p *ngIf="waypoints.length <= 0" style="color: gray">Zatiaľ neboli pridané žiadne body</p>
-  </div>
-  <button type="button" class="btn btn-danger" (click)="waypointListModal.close('reset')">Resetovať</button>
-  <div class="modal-footer bg-light">
-    <p style="color: gray">TODO - buttons for delete, update etc.</p>
-  </div>
-</ng-template>

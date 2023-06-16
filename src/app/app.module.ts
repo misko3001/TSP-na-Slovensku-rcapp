@@ -8,7 +8,6 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {WaypointFormComponent} from './feature/waypoint-form/waypoint-form.component';
-import {GeoidResultComponent} from './feature/geoid-result/geoid-result.component';
 import {MapComponent} from './feature/map/map.component';
 import {ScalelineComponent} from './feature/scaleline/scaleline.component';
 import {MousePositionComponent} from './feature/mouse-position/mouse-position.component';
@@ -56,11 +55,10 @@ import {CrossoverFormComponent} from './feature/crossover-form/crossover-form.co
 import {ConfigFormComponent} from './feature/config-form/config-form.component';
 import {TerminationFormComponent} from './feature/termination-form/termination-form.component';
 import {WebSocketConnector} from "./shared/service/web-socket-connector.service";
-import {environment} from "../environments/environment";
 import {TspResultPreviewComponent} from './feature/tsp-result-preview/tsp-result-preview.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { TspFinalResultComponent } from './feature/tsp-final-result/tsp-final-result.component';
-import { InfoBoxComponent } from './feature/info-box/info-box.component';
+import {GeoidStepperComponent} from "./feature/geoid-stepper/geoid-stepper.component";
 
 @NgModule({
   declarations: [
@@ -68,7 +66,6 @@ import { InfoBoxComponent } from './feature/info-box/info-box.component';
     GeoidComponent,
     GeoidFormComponent,
     WaypointFormComponent,
-    GeoidResultComponent,
     MapComponent,
     ScalelineComponent,
     MousePositionComponent,
@@ -83,7 +80,7 @@ import { InfoBoxComponent } from './feature/info-box/info-box.component';
     TerminationFormComponent,
     TspResultPreviewComponent,
     TspFinalResultComponent,
-    InfoBoxComponent,
+    GeoidStepperComponent,
   ],
     imports: [
         BrowserModule,
@@ -129,7 +126,7 @@ import { InfoBoxComponent } from './feature/info-box/info-box.component';
       provide: APP_INITIALIZER,
       deps: [WebSocketConnector],
       useFactory: (wsConnector: WebSocketConnector) => {
-        return () => wsConnector.connect(environment.ws);
+        return () => wsConnector.connect("http://localhost:8080/ws");
       },
       multi: true
     }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {GeoidRequestDto} from "../../model/GeoidRequestDto";
 import {Observable} from "rxjs";
-import {TSPResult} from "../../model/TSPResult";
+import {GeoidResult} from "../../model/GeoidResult";
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +14,8 @@ export class GeoidService {
 
   constructor(private http: HttpClient) { }
 
-  public calculate(request: GeoidRequestDto): Observable<TSPResult> {
-    return this.http.post<TSPResult>(`${this.geoidEndpoint}`, request);
+  public calculate(request: GeoidRequestDto): Observable<GeoidResult> {
+    return this.http.post<GeoidResult>(`${this.geoidEndpoint}`, request);
   }
 
 }

@@ -51,13 +51,13 @@ export class GeoidFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public emitRequest(): void {
-    this.request.emit({
-      maxIterations: this.geoidForm.value.maxIterations!,
-      swapMutationChance: this.geoidForm.value.swapMutationChance!,
-      crossoverChance: this.geoidForm.value.crossoverChance!
-    });
-  }
+  // public emitRequest(): void {
+  //   this.request.emit({
+  //     maxIterations: this.geoidForm.value.maxIterations!,
+  //     swapMutationChance: this.geoidForm.value.swapMutationChance!,
+  //     crossoverChance: this.geoidForm.value.crossoverChance!
+  //   });
+  // }
 
   public isFormValid(): any {
     return this.geoidForm.valid && !this.awaitingResponse && this.hasWaypoints ? null : true;

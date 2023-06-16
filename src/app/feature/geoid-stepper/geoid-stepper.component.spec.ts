@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InfoBoxComponent } from './info-box.component';
+import { GeoidStepperComponent } from './geoid-stepper.component';
 
-describe('InfoBoxComponent', () => {
-  let component: InfoBoxComponent;
-  let fixture: ComponentFixture<InfoBoxComponent>;
+describe('GeoidStepperComponent', () => {
+  let component: GeoidStepperComponent;
+  let fixture: ComponentFixture<GeoidStepperComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InfoBoxComponent ]
+      declarations: [ GeoidStepperComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InfoBoxComponent);
+    fixture = TestBed.createComponent(GeoidStepperComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
